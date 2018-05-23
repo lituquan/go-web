@@ -11,6 +11,12 @@ type User struct {
 	Username string `json:"username"`//注意变量名大写是为了json可以导出
 	Password string `json:"password"`
 }
+
+func map_to_json(ctx iris.Context) {
+	w:=ctx.ResponseWriter()
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	ctx.JSON(map[string]string{"username":"username","password":"654321"})
+}
 //程序入口
 func main() {
 	app := iris.New()
@@ -28,16 +34,21 @@ func main() {
 		ctx.JSON(User{Username:"admin",Password:"654321"})
 	})
 
-	app.Get("/getUser_", func(ctx iris.Context) {
-		w:=ctx.ResponseWriter()
-		w.Header().Set("Access-Control-Allow-Origin","*")
-		ctx.JSON(map[string]string{"username":"username","password":"654321"})
-	})
+	app.Get("/getUser_", map_to_json)
 	app.Run(iris.Addr(":80"))
 }
+
 
 2.总结
 
 http服务流程：监听端口-->客户端连接-->匹配路由-->调用处理器-->生成响应
+
+前后端分离，前端提交url和参数，go服务监听并响应接口。
+
+接口返回的数据在以上demo中是直接写死的，后续接入数据库处理，就可以了。
+
+全过程为：
+
+页面，js或者vue-->url请求-->go，原生http或者iris服务-->路由匹配到处理器-->处理器数据处理-->直接返回或者请求数据库或者请求其他服务
 
 
