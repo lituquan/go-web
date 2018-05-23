@@ -1,27 +1,30 @@
-1.web的体系：基于http协议，请求响应模式。
+1.web的体系：
+	基于http协议，请求响应模式。
+2.go语言生成web服务
 
-go内置了net/http标准库跑web,test.go：
+	go内置了net/http标准库跑web,test.go，cmd执行go run test.go,浏览器打开：http://localhost，http://localhost/json,发出请求，然后可以看到响应结果。
 
-package main
+	package main
 
-import (
-	"net/http"
-	"encoding/json"
-	"fmt"
+	//导包
+	import (
+		"net/http"  //http协议
+		"encoding/json"  //json解析
+		"fmt"  //读写
 	)
 
-func main()  {
-  //返回hello world
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprint(writer,"hello world")
-	})
-  //返回json
-	http.HandleFunc("/json", func(writer http.ResponseWriter, request *http.Request) {
-		word,_:=json.Marshal(map[string]string{"word":"hello world"})
-		fmt.Fprint(writer,string(word))
-	})
-	http.ListenAndServe(":80",nil)
-}
+	func main()  {
+		//返回hello world
+		http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+			fmt.Fprint(writer,"hello world")
+		})
+		//返回json
+		http.HandleFunc("/json", func(writer http.ResponseWriter, request *http.Request) {
+			word,_:=json.Marshal(map[string]string{"word":"hello world"})
+			fmt.Fprint(writer,string(word))
+		})
+		http.ListenAndServe(":80",nil)
+	}
 
-cmd执行go run test.go,浏览器打开：http://localhost，http://localhost/json,发出请求，然后可以看到响应结果。
+
 
