@@ -38,8 +38,12 @@ func main() {
 	app.Run(iris.Addr(":80"))
 }
 
-
-2.总结
+2.跨域问题
+	(1)同域处理：NGINX代理或者静态资源配置到go webserver里面
+	(2)go webserver允许跨域：
+	header设置授权，如：w.Header().Set("Access-Control-Allow-Origin","*")//跨域允许	
+		
+3.总结
 
 http服务流程：监听端口-->客户端连接-->匹配路由-->调用处理器-->生成响应
 
