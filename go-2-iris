@@ -1,0 +1,43 @@
+1.iris是一个mvc框架，更简单的生成web服务
+
+package main
+
+//导包
+import (
+	"github.com/kataras/iris"
+	)
+//定义用户对象
+type User struct {
+	Username string `json:"username"`//注意变量名大写是为了json可以导出
+	Password string `json:"password"`
+}
+//程序入口
+func main() {
+	app := iris.New()
+	//定义url处理器
+	app.Handle("GET", "/", func(ctx iris.Context) {
+		ctx.HTML("<h1>Welcome</h1>")
+	})
+	app.Get("/ping", func(ctx iris.Context) {
+		ctx.WriteString("pong")
+	})
+	//返回Json
+	app.Get("/getUser", func(ctx iris.Context) {
+		w:=ctx.ResponseWriter()
+		w.Header().Set("Access-Control-Allow-Origin","*")//跨域允许
+		ctx.JSON(User{Username:"admin",Password:"654321"})
+	})
+
+	app.Get("/getUser_", func(ctx iris.Context) {
+		w:=ctx.ResponseWriter()
+		w.Header().Set("Access-Control-Allow-Origin","*")
+		ctx.JSON(map[string]string{"username":"username","password":"654321"})
+	})
+	app.Run(iris.Addr(":80"))
+}
+
+2.总结
+
+http服务流程：监听端口-->客户端连接-->匹配路由-->调用处理器-->生成响应
+
+
