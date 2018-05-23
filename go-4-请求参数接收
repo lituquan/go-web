@@ -1,0 +1,61 @@
+1.原生请求
+/*
+	json返回：适合和前端交互
+	1.http协议helloworld:路由[控制器]
+	2.http返回json对象[view]
+	3.访问数据库,定义结构体,返回json[model]	
+	4.前端显示：html,css,js
+	5.go模板类
+*/
+
+package main
+
+import 	"fmt"
+import	"net/http"
+import	"log"
+import  "encoding/json"
+import  "strconv"
+
+type User struct{
+	Name string 
+	Age int
+}
+
+func hello(w http.ResponseWriter,r *http.Request){
+	r.ParseForm() //开启form接收
+	fmt.Println(r.Form)//后台打印
+	fmt.Fprintf(w,"hello world")//输出到http响应
+}
+
+func login(w http.ResponseWriter,r *http.Request){
+	//读取表单
+	r.ParseForm() 
+	form:=r.Form
+	fmt.Println(form)
+	user:=User{}
+	user.Name=form.Get("name")//form表单接收
+	age,err:=strconv.Atoi(form.Get("age"))
+	user.Age=age
+	//json化输出
+	fmt.Println(form)
+	userJson,err:=json.Marshal(user)
+	if err!=nil{
+		fmt.Fprintf(w,err.Error())
+	}
+	fmt.Fprintf(w,string(userJson))//输出到http响应
+}
+
+func main(){
+	fmt.Println("helloworld")
+	http.HandleFunc("/",hello) //路由规则
+	http.HandleFunc("/login",login) //路由规则
+	err:=http.ListenAndServe(":80",nil)
+	if err!=nil{
+		log.Fatal("ListenAndServe: ",err)
+	}
+}
+
+2.iris:上下文接收
+  ctx.ReadForm()
+  ctx.ReadJson()
+  
