@@ -1,0 +1,30 @@
+#下载go运行包
+	wget https://studygolang.com/dl/golang/go1.10.3.linux-amd64.tar.gz
+#解压
+	tar -xvf *.tar.gz
+#环境变量
+	mv go /usr/local
+	export PATH=$PATH:/usr/local/go/bin
+
+#go工作空间
+	mkdir $HOME/gopath
+	export GOPATH=$HOME/gopath
+
+#docker环境
+	#参考 https://blog.csdn.net/u010046908/article/details/79553227
+	yum -y install docker
+
+#docker运行go helloworld
+	#参考 https://www.jianshu.com/p/37693eb8f646
+	#制作镜像,写Dockerfile
+	vi Dockerfile
+	#生成镜像
+	docker build -t hello:0.0.1 .
+	#运行镜像
+	docker run -p 8080:8080 hello:0.0.1 
+#访问
+	curl http://loalhost:8080
+	
+
+
+
