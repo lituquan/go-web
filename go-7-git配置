@@ -1,8 +1,8 @@
 1.安装git
   https://git-scm.com/download/win
 2.配置path
-
+  path添加git.exe安装的路径
 3.ssh配置
-
+  参考：https://www.cnblogs.com/php-studys/p/7809991.html
 4.TortoiseGit
 安装的时候选择openssh
