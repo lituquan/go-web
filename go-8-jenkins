@@ -1,0 +1,29 @@
+1.java
+	#java环境
+	yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel 
+	#path环境变量
+	vi  /etc/profile
+	export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.51.x86_64
+	export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+	export PATH=$PATH:$JAVA_HOME/bin
+2.jenkins
+	#jenkins环境
+	sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+	sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+	sudo yum install jenkins
+	
+3.配置权限
+	#jenkins调用系统命令
+	使用root用户执行jenkins
+	https://blog.csdn.net/wzqnls/article/details/78506149
+	
+4.任务配置
+	(1)新建任务
+	(2)设置git地址
+	(3)shell编写
+		#!/bin/sh
+		cd helloworld
+		export GOROOT=/usr/local/go
+		export PATH=$PATH:$GOROOT/bin
+		GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build hello.go 
+		docker build -t helloworld:latest .
