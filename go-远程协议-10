@@ -1,0 +1,19 @@
+1.rpc
+ tcp协议:
+  grpc
+  thrift  
+ 特点：使用工具根据描述文档生成不同语言接口,client-->server
+  
+ net/rpc/jsonrpc:
+  定义接口,对象交互
+  
+2.restful
+ http协议:
+  http协议语言无关性更好,json对象容易读,前端交互友好。
+
+ 
+ 
+ 
+ 
+  
+ 
