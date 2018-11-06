@@ -7,9 +7,14 @@
  net/rpc/jsonrpc:
   定义接口,对象交互
   
+ 序列化：
+  protobuf,json
 2.restful
  http协议:
   http协议语言无关性更好,json对象容易读,前端交互友好。
+  
+ 序列化：
+  json
 
  
  
