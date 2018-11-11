@@ -71,7 +71,7 @@ func makeCountEndpoint(svc StringService) endpoint.Endpoint {
 		v := svc.Count(req.S)
 		return countResponse{v}, nil
 	}
-}
+}   
 
 // Transports expose the service to the network. In this first example we utilize JSON over HTTP.
 func main() {
