@@ -2,6 +2,7 @@
  tcp协议:
   grpc
   thrift  
+  rpcx
  特点：使用工具根据描述文档生成不同语言接口,client-->server
   
  net/rpc/jsonrpc:
