@@ -1,0 +1,31 @@
+1.MVC：
+    页面template（v） +  go 对象数据 (m) + go 控制器（c）
+
+2.前后分离：
+    页面html\js\css（v） + 数据接口json (m) + go 控制器（c）
+
+3.开发时跨域：
+
+代理nginx\apache: port3-->域名{ 
+   页面port1
+   接口port2
+}
+
+server{
+      listen       80; #原为8080，避免冲突，更改为80
+      server_name  test;#统一域名
+
+      #charset koi8-r;
+
+      location /web/ {
+          proxy_pass http://localhost:10086; # 代理接口地址port1
+          proxy_set_header X-real-ip $remote_addr;
+          proxy_set_header Host $http_host;
+      }
+
+      location /share/ {
+          proxy_pass http://192.168.20.32:8080;
+          proxy_set_header X-real-ip $remote_addr;# 代理接口地址port2
+          proxy_set_header Host $http_host;
+      }  		
+}
